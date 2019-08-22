@@ -3,25 +3,28 @@ import requests
 import httplib2
 
 
-def hours():
-    page = requests.get("https://publish.manheim.com/en/locations/us-locations.html")
+def hours(location):
+    page = requests.get(location)
     soup = BeautifulSoup(page.content, "html.parser")
-    test = soup.find_all(href=True)
-    print(test)
+    # test = soup.contents()
+    div = soup.find(id="hours")
+    print(div)
 
 
 def locations():
     http = httplib2.Http()
     status, response = http.request("https://publish.manheim.com/en/locations/us-locations.html")
 
-    locations = []
+    location_list = []
     for link in BeautifulSoup(response, parse_only=SoupStrainer('a'), features="html.parser"):
         if link.has_attr('href'):
             if link['href'].startswith("https://publish.manheim.com/en/locations/us-locations/"):
-                locations.append(link['href'])
-    return locations
+                location_list.append(link['href'])
+    return location_list
 
 
 if __name__ == '__main__':
     manheim_locations = locations()
-    print(len(manheim_locations))
+    # print(manheim_locations[-1])
+    # test_location = str(manheim_locations[-1])
+    hours("https://publish.manheim.com/en/locations/us-locations/manheim-milwaukee.html")
