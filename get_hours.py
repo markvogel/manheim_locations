@@ -27,8 +27,19 @@ def locations():
     return location_list
 
 
+def parse_hours(location):
+    page = requests.get(location)
+    soup = BeautifulSoup(page.content, "html.parser")
+    h = soup.find(id="hours")
+    p = h.find_next_sibling('p')
+    return p.get_text()
+
+
 if __name__ == '__main__':
     manheim_locations = locations()
     # print(manheim_locations[-1])
     # test_location = str(manheim_locations[-1])
-    hours("https://publish.manheim.com/en/locations/us-locations/manheim-milwaukee.html")
+    # hours("https://publish.manheim.com/en/locations/us-locations/manheim-milwaukee.html")
+    for i in manheim_locations:
+        print(parse_hours(i))
+
