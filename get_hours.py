@@ -7,8 +7,12 @@ def hours(location):
     page = requests.get(location)
     soup = BeautifulSoup(page.content, "html.parser")
     # test = soup.contents()
-    div = soup.find(id="hours")
-    print(div)
+    # div = soup.find(id="hours")
+    h = soup.find(id="hours")
+    # print(div)
+    # print(soup.get_text())
+    print(h.get_text())
+
 
 
 def locations():
