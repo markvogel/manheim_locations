@@ -41,5 +41,8 @@ if __name__ == '__main__':
     # test_location = str(manheim_locations[-1])
     # hours("https://publish.manheim.com/en/locations/us-locations/manheim-milwaukee.html")
     for i in manheim_locations:
-        print(parse_hours(i))
-
+        try:
+            print(i)
+            print(parse_hours(i))
+        except AttributeError:
+            print("\n AttributeError")
